@@ -3,6 +3,57 @@ var map;
 var place;
 var autocomplete;
 var infowindow = new google.maps.InfoWindow();
+var iconBase =  'img/';
+var icons = {
+    __notUsed__: {
+        icon: {
+            url: iconBase +'runningman.PNG',
+            scaledSize: new google.maps.Size(50, 50),
+            origin: new google.maps.Point(0,0),
+            anchor: new google.maps.Point(0,0)
+        }
+    },
+    fivek_type: {
+        icon: {
+            url: iconBase +'runningmanblue.PNG',
+            scaledSize: new google.maps.Size(50, 50),
+            origin: new google.maps.Point(0,0),
+            anchor: new google.maps.Point(0,0)
+        }
+    },
+    tenk_type: {
+        icon: {
+            url: iconBase +'runningmangreen.PNG',
+            scaledSize: new google.maps.Size(50, 50),
+            origin: new google.maps.Point(0,0),
+            anchor: new google.maps.Point(0,0)
+        }
+    },
+    half_type: {
+        icon: {
+            url: iconBase +'runningmanpurple.PNG',
+            scaledSize: new google.maps.Size(50, 50),
+            origin: new google.maps.Point(0,0),
+            anchor: new google.maps.Point(0,0)
+        }
+    },
+    mara_type: {
+        icon: {
+            url: iconBase +'runningmanred.PNG',
+            scaledSize: new google.maps.Size(50, 50),
+            origin: new google.maps.Point(0,0),
+            anchor: new google.maps.Point(0,0)
+        }
+    },
+    relay_type: {
+        icon: {
+            url: iconBase +'runningmanyellow.PNG',
+            scaledSize: new google.maps.Size(50, 50),
+            origin: new google.maps.Point(0,0),
+            anchor: new google.maps.Point(0,0)
+        }
+    },
+};
 
 function initialization() {
     showAllReports();
@@ -16,9 +67,10 @@ function showAllReports() {
     $.ajax({
         url: 'HttpServlet',
         type: 'POST',
-        data: { "tab_id": "1"},
+        data: { "tab_id": "1", "report_type": "mara_type" },
         success: function(reports) {
-            mapInitialization(reports);
+            console.log(reports);
+            mapInitialization(reports, "mara_type");
         },
         error: function(xhr, status, error) {
             alert("An AJAX error occured: " + status + "\nError: " + error);
@@ -26,7 +78,22 @@ function showAllReports() {
     });
 }
 
-function mapInitialization(reports) {
+function showRaceType(raceType) {
+    $.ajax({
+        url: 'HttpServlet',
+        type: 'POST',
+        data: { "tab_id": "1"},
+        success: function(reports) {
+            console.log(reports);
+            updateMap(reports, raceType);
+        },
+        error: function(xhr, status, error) {
+            alert("An AJAX error occured: " + status + "\nError: " + error);
+        }
+    });
+}
+
+function mapInitialization(reports, raceType) {
     var mapOptions = {
         mapTypeId : google.maps.MapTypeId.ROADMAP, // Set the type of Map
     };
@@ -46,57 +113,30 @@ function mapInitialization(reports) {
         /**
          * change this entire section to create a window with relevant race information
          */
-        // Create the infoWindow content
-        var contentStr = '<h4>Report Details</h4><hr>';
-        contentStr += '<p><b>' + 'Disaster' + ':</b>&nbsp' + e['disaster'] + '</p>';
-        contentStr += '<p><b>' + 'Report Type' + ':</b>&nbsp' + e['report_type'] +
-            '</p>';
-        if (e['report_type'] == 'request' || e['report_type'] == 'donation') {
-            contentStr += '<p><b>' + 'Resource Type' + ':</b>&nbsp' +
-                e['resource_type'] + '</p>';
-        }
-        else if (e['report_type'] == 'damage') {
-            contentStr += '<p><b>' + 'Damage Type' + ':</b>&nbsp' + e['damage_type']
-                + '</p>';
-        }
-        contentStr += '<p><b>' + 'Timestamp' + ':</b>&nbsp' +
-            e['time_stamp'].substring(0,19) + '</p>';
-        if ('message' in e){
-            contentStr += '<p><b>' + 'Message' + ':</b>&nbsp' + e['message'] + '</p>';
-        }
+        // // Create the infoWindow content
+        // var contentStr = '<h4>Report Details</h4><hr>';
+        // contentStr += '<p><b>' + 'Disaster' + ':</b>&nbsp' + e['disaster'] + '</p>';
+        // contentStr += '<p><b>' + 'Report Type' + ':</b>&nbsp' + e['report_type'] +
+        //     '</p>';
+        // if (e['report_type'] == 'request' || e['report_type'] == 'donation') {
+        //     contentStr += '<p><b>' + 'Resource Type' + ':</b>&nbsp' +
+        //         e['resource_type'] + '</p>';
+        // }
+        // else if (e['report_type'] == 'damage') {
+        //     contentStr += '<p><b>' + 'Damage Type' + ':</b>&nbsp' + e['damage_type']
+        //         + '</p>';
+        // }
+        // contentStr += '<p><b>' + 'Timestamp' + ':</b>&nbsp' +
+        //     e['time_stamp'].substring(0,19) + '</p>';
+        // if ('message' in e){
+        //     contentStr += '<p><b>' + 'Message' + ':</b>&nbsp' + e['message'] + '</p>';
+        // }
 
         /**
          * need to add the runner pngs to the project and edit these urls to point to the new images.
          * alter size as needed. change icon names.
          */
         // Create the icon marker
-        var iconBase =  'img/';
-        var icons = {
-            request: {
-                icon: {
-                    url: iconBase +'request.png',
-                    scaledSize: new google.maps.Size(50, 50),
-                    origin: new google.maps.Point(0,0),
-                    anchor: new google.maps.Point(0,0)
-                }
-            },
-            damage: {
-                icon: {
-                    url: iconBase + 'damage.png',
-                    scaledSize: new google.maps.Size(50,50),
-                    origin: new google.maps.Point(0,0),
-                    anchor: new google.maps.Point (0,0)
-                }
-            },
-            donation: {
-                icon: {
-                    url: iconBase + 'donation.png',
-                    scaledSize: new google.maps.Size(50, 50),
-                    origin: new google.maps.Point(0,0),
-                    anchor: new google.maps.Point(0,0)
-                }
-            },
-        };
 
         /**
          * change icon
@@ -104,22 +144,47 @@ function mapInitialization(reports) {
         // Create the marker
         var marker = new google.maps.Marker({ // Set the marker
             position : latlng, // Position marker to coordinates
-            icon: icons[e['report_type']].icon,
+            icon: icons[raceType].icon,
             map : map, // assign the market to our map variable
-            customInfo: contentStr,
+           // customInfo: contentStr,
         });
 
         // Add a Click Listener to the marker
-        google.maps.event.addListener(marker, 'click', function() {
-            // use 'customInfo' to customize infoWindow
-            infowindow.setContent(marker['customInfo']);
-            infowindow.open(map, marker); // Open InfoWindow
-        });
+        // google.maps.event.addListener(marker, 'click', function() {
+        //     // use 'customInfo' to customize infoWindow
+        //     infowindow.setContent(marker['customInfo']);
+        //     infowindow.open(map, marker); // Open InfoWindow
+        // });
 
     });
 
     map.fitBounds (bounds);
 
+}
+
+function updateMap(reports, raceType) {
+    var mapOptions = {
+        mapTypeId : google.maps.MapTypeId.ROADMAP, // Set the type of Map
+    };
+    // Render the map within the empty div
+    map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+
+    var bounds = new google.maps.LatLngBounds ();
+    console.log(reports)
+    $.each(reports, function(i, e) {
+        var long = Number(e['longitude']);
+        var lat = Number(e['latitude']);
+        var latlng = new google.maps.LatLng(lat, long);
+
+        bounds.extend(latlng);
+        var marker = new google.maps.Marker({ // Set the marker
+            position : latlng, // Position marker to coordinates
+            icon: icons[raceType].icon,
+            map : map, // assign the market to our map variable
+            // customInfo: contentStr,
+        });
+    });
+    map.fitBounds (bounds);
 }
 
 /**

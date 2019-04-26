@@ -9,6 +9,7 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.sound.midi.SysexMessage;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -66,7 +67,7 @@ public class HttpServlet extends javax.servlet.http.HttpServlet {
     private void createReport(HttpServletRequest request, HttpServletResponse
             response) throws SQLException, IOException {
         DBUtility dbutil = new DBUtility();
-        String sql;
+        String sql = "";
 /**
  * This section will need to be modified to create a post to the new table, "event". Follow the format of the below code to
  * 1. pull fields from the request with request.getParameter()
@@ -230,7 +231,21 @@ public class HttpServlet extends javax.servlet.http.HttpServlet {
 //                    "report_id";
 //            queryReportHelper(sql,list,"damage",disaster_type,resource_or_damage);
 //        }
-
+        String raceType = request.getParameter("report_type");
+        String sql = "select * from event where " + raceType + " = true;";
+        DBUtility dbutil = new DBUtility();
+        ResultSet res = dbutil.queryDB(sql);
+        while (res.next()) {
+            // add to response
+            HashMap<String, String> m = new HashMap<String,String>();
+            m.put("race", res.getString("race_name"));
+            m.put("city", res.getString("city"));
+            m.put("month", res.getString("month_name"));
+            m.put("state", res.getString("state_name"));
+            m.put("latitude", res.getString("latitude"));
+            m.put("longitude", res.getString("longitude"));
+            list.put(m);
+        }
         response.getWriter().write(list.toString());
     }
 
@@ -252,27 +267,27 @@ public class HttpServlet extends javax.servlet.http.HttpServlet {
             }
         }
         ResultSet res = dbutil.queryDB(sql);
-        while (res.next()) {
-            // add to response
-            HashMap<String, String> m = new HashMap<String,String>();
-            m.put("report_id", res.getString("id"));
-            m.put("report_type", res.getString("report_type"));
-            if (report_type.equalsIgnoreCase("donation") ||
-                    report_type.equalsIgnoreCase("request")) {
-                m.put("resource_type", res.getString("resource_type"));
-            }
-            else if (report_type.equalsIgnoreCase("damage")) {
-                m.put("damage_type", res.getString("damage_type"));
-            }
-            m.put("disaster", res.getString("disaster_type"));
-            m.put("first_name", res.getString("first_name"));
-            m.put("last_name", res.getString("last_name"));
-            m.put("time_stamp", res.getString("time_stamp"));
-            m.put("longitude", res.getString("longitude"));
-            m.put("latitude", res.getString("latitude"));
-            m.put("message", res.getString("message"));
-            list.put(m);
-        }
+//        while (res.next()) {
+//            // add to response
+//            HashMap<String, String> m = new HashMap<String,String>();
+//            m.put("report_id", res.getString("id"));
+//            m.put("report_type", res.getString("report_type"));
+//            if (report_type.equalsIgnoreCase("donation") ||
+//                    report_type.equalsIgnoreCase("request")) {
+//                m.put("resource_type", res.getString("resource_type"));
+//            }
+//            else if (report_type.equalsIgnoreCase("damage")) {
+//                m.put("damage_type", res.getString("damage_type"));
+//            }
+//            m.put("disaster", res.getString("disaster_type"));
+//            m.put("first_name", res.getString("first_name"));
+//            m.put("last_name", res.getString("last_name"));
+//            m.put("time_stamp", res.getString("time_stamp"));
+//            m.put("longitude", res.getString("longitude"));
+//            m.put("latitude", res.getString("latitude"));
+//            m.put("message", res.getString("message"));
+//            list.put(m);
+//        }
     }
 
     public void main() throws JSONException {

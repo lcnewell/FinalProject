@@ -56,12 +56,13 @@ function queryReport(event) {
     var a = $("#query_report_form").serializeArray();
     a.push({ name: "tab_id", value: "1" });
     a = a.filter(function(item){return item.value != '';});
+    var raceType = a[0].value;
     $.ajax({
         url: 'HttpServlet',
         type: 'POST',
         data: a,
         success: function(reports) {
-            mapInitialization(reports);
+            updateMap(reports, raceType);
         },
         error: function(xhr, status, error) {
             alert("Status: " + status + "\nError: " + error);
