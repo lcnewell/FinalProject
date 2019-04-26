@@ -23,8 +23,8 @@
 hs_err_pid*
 
 # intelliJ
-.idea
-.idea/*
+/.idea/*
+out/*
 
 # git
 .gitattributes
