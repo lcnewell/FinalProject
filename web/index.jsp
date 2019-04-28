@@ -30,7 +30,7 @@
 
 <body>
 <nav class="navbar navbar-inverse navbar-fixed-top">
-    <a class="navbar-brand">Disaster Management Portal</a>
+    <a class="navbar-brand">Run Management Portal</a>
 </nav>
 
 <div class="container-fluid">
@@ -39,7 +39,7 @@
 
             <!-- Tab Navis-->
             <ul class="nav nav-tabs">
-                <li class="active"><a href="#create_report" data-toggle="tab">Create Report</a></li>
+                <li class="active"><a href="#create_report" data-toggle="tab">Add a Race</a></li>
                 <li><a href="#query_report" data-toggle="tab">Query</a></li>
             </ul>
 
@@ -48,49 +48,23 @@
                 <!-- Create Report Tab Panel -->
                 <div class="tab-pane active" id="create_report">
                     <form id = "create_report_form">
-                        <div><label>First Name:&nbsp</label><input placeholder="Your first name" name="fN"></div>
-                        <div><label>Last Name:&nbsp</label><input placeholder="Your last name" name="lN"></div>
-                        <div>
-                            <label><input type="radio" name="is_male" value="t">&nbspMale</label>
-                            <label><input type="radio" name="is_male" value="f">&nbspFemale</label>
-                        </div>
-                        <div><label>Age:&nbsp</label><input placeholder="Your age" name="age"></div>
-                        <div><label>Blood Type:</label>
+                        <div><label>City:&nbsp</label><input placeholder="City Name" name="city"></div>
+                        <div><label>Month:&nbsp</label><input placeholder="Month of Run" name="month_name"></div>
+                        <div><label>State:&nbsp</label><input placeholder="State" name="state_name"></div>
+                        <%--<div>--%>
+                        <%--<label><input type="radio" name="is_male" value="t">&nbspMale</label>--%>
+                        <%--<label><input type="radio" name="is_male" value="f">&nbspFemale</label>--%>
+                        <%--</div>--%>
+
+                        <div><label>Run Type:</label>
                             <select name="blood_type">
-                                <option value="">Choose your blood type</option>
-                                <option value="A">A</option>
-                                <option value="B">B</option>
-                                <option value="O">O</option>
-                                <option value="AB">AB</option>
-                                <option value="Other">Other</option>
-                            </select>
-                        </div>
-                        <div><label>Tel:&nbsp</label><input placeholder="Your telephone number" name="tel"></div>
-                        <div><label>Email:&nbsp</label><input placeholder="Your email address" name="email"></div>
-                        <div><label>Contact's First Name:&nbsp</label><input placeholder="Contact's first name" name="contact_fN"></div>
-                        <div><label>Contact's Last Name:&nbsp</label><input placeholder="Contact's last name" name="contact_lN"></div>
-                        <div><label>Contact's Tel:&nbsp</label><input placeholder="Contact's telephone number" name="contact_tel"></div>
-                        <div><label>Contact's Email:&nbsp</label><input placeholder="Contact's email address" name="contact_email"></div>
-                        <div><label>Report Type:</label>
-                            <select onchange="onSelectReportType(this)" name="report_type">
-                                <option value="">Choose the report type</option>
-                                <option value="donation">Donation</option>
-                                <option value="request">Request</option>
-                                <option value="damage">Damage Report</option>
-                            </select>
-                        </div>
-                        <div class="additional_msg_div" style="visibility: hidden"><label class="additional_msg"></label>
-                            <select class="additional_msg_select" name="additional_message"></select>
-                        </div>
-                        <div><label>Disaster Type:</label>
-                            <select name="disaster_type">
-                                <option value="">Choose the disaster type</option>
-                                <option value="flood">flood</option>
-                                <option value="wildfire">wildfire</option>
-                                <option value="earthquake">earthquake</option>
-                                <option value="tornado">tornado</option>
-                                <option value="hurricane">hurricane</option>
-                                <option value="other">other</option>
+                                <option value="">Select run length</option>
+                                <option value="mara_type">Marathon</option>
+                                <option value="half_type">Half Marathon</option>
+                                <option value="tenk_type">10k</option>
+                                <option value="fivek">5k</option>
+                                <option value="kid_type">Kids run</option>
+                                <option value="relay_type">Relay Marathon</option>
                             </select>
                         </div>
                         <div><label>Address:</label>
