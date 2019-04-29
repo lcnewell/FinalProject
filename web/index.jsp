@@ -51,21 +51,29 @@
                         <div><label>City:&nbsp</label><input placeholder="City Name" name="city"></div>
                         <div><label>Month:&nbsp</label><input placeholder="Month of Run" name="month_name"></div>
                         <div><label>State:&nbsp</label><input placeholder="State" name="state_name"></div>
-                        <%--<div>--%>
-                        <%--<label><input type="radio" name="is_male" value="t">&nbspMale</label>--%>
-                        <%--<label><input type="radio" name="is_male" value="f">&nbspFemale</label>--%>
-                        <%--</div>--%>
-
-                        <div><label>Run Type:</label>
-                            <select name="blood_type">
-                                <option value="">Select run length</option>
-                                <option value="mara_type">Marathon</option>
-                                <option value="half_type">Half Marathon</option>
-                                <option value="tenk_type">10k</option>
-                                <option value="fivek">5k</option>
-                                <option value="kid_type">Kids run</option>
-                                <option value="relay_type">Relay Marathon</option>
-                            </select>
+                        <div><label>Marathon</label>
+                            <label><input type="radio" name="mara_type" value="TRUE">&nbspYes</label>
+                            <label><input type="radio" name="mara_type" value="FALSE">&nbspNo</label>
+                        </div>
+                        <div><label>Half Marathon</label>
+                            <label><input type="radio" name="half_type" value="TRUE">&nbspYes</label>
+                            <label><input type="radio" name="half_type" value="FALSE">&nbspNo</label>
+                        </div>
+                        <div><label>10k</label>
+                            <label><input type="radio" name="tenk_type" value="TRUE">&nbspYes</label>
+                            <label><input type="radio" name="tenk_type" value="FALSE">&nbspNo</label>
+                        </div>
+                        <div><label>5k</label>
+                            <label><input type="radio" name="fivek_type" value="TRUE">&nbspYes</label>
+                            <label><input type="radio" name="fivek_type" value="FALSE">&nbspNo</label>
+                        </div>
+                        <div><label>Kids Run</label>
+                            <label><input type="radio" name="kid_type" value="TRUE">&nbspYes</label>
+                            <label><input type="radio" name="kid_type" value="FALSE">&nbspNo</label>
+                        </div>
+                        <div><label>Relay</label>
+                            <label><input type="radio" name="relay_type" value="TRUE">&nbspYes</label>
+                            <label><input type="radio" name="relay_type" value="FALSE">&nbspNo</label>
                         </div>
                         <div><label>Address:</label>
                             <input id="autocomplete" placeholder="Address" >
