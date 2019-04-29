@@ -135,31 +135,46 @@ public class HttpServlet extends javax.servlet.http.HttpServlet {
 //
 //        System.out.println("Success! User created.");
 //
-//        // 3. create report
-//        int report_id = 0;
-//        String report_type = request.getParameter("report_type");
-//        String disaster_type = request.getParameter("disaster_type");
-//        String lon = request.getParameter("longitude");
-//        String lat = request.getParameter("latitude");
-//        String message = request.getParameter("message");
-//        String add_msg = request.getParameter("additional_message");
-//        if (report_type != null) {report_type = "'" + report_type + "'";}
-//        if (disaster_type != null) {disaster_type = "'" + disaster_type + "'";}
-//        if (message != null) {message = "'" + message + "'";}
-//        if (add_msg != null) {add_msg = "'" + add_msg + "'";}
-//
-//        sql = "insert into report (reporter_id, report_type, disaster_type, geom," +
-//                " message) values (" + user_id + "," + report_type + "," + disaster_type
-//                + ", ST_GeomFromText('POINT(" + lon + " " + lat + ")', 4326)" + "," +
-//                message + ")";
-//        dbutil.modifyDB(sql);
-//
-//        // record report_id
-//        ResultSet res_3 = dbutil.queryDB("select last_value from report_id_seq");
-//        res_3.next();
-//        report_id = res_3.getInt(1);
-//
-//        System.out.println("Success! Report created.");
+        // 3. create race report
+        int id = 0;
+        String race_name = request.getParameter("race_name");
+        String city = request.getParameter("city");
+        String month_name = request.getParameter("month_name");
+        String state_name = request.getParameter("state_name");
+        String mara_type = request.getParameter("mara_type");
+        String half_type = request.getParameter("half_type");
+        String tenk_type = request.getParameter("tenk_type");
+        String fivek_type = request.getParameter("fivek_type");
+        String kid_type = request.getParameter("kid_type");
+        String relay_type = request.getParameter("relay_type");
+        String lon = request.getParameter("longitude");
+        String lat = request.getParameter("latitude");
+
+        System.out.println(race_name);
+        System.out.println(city);
+        System.out.println(month_name);
+        System.out.println(state_name);
+        System.out.println(mara_type);
+        System.out.println(half_type);
+        System.out.println(tenk_type);
+        System.out.println(fivek_type);
+        System.out.println(kid_type);
+        System.out.println(relay_type);
+        System.out.println(lon);
+        System.out.println(lat);
+
+        sql = "insert into event (race_name, city, month_name, state_name, mara_type, tenk_type, half_type, fivek_type," +
+                " kid_type, relay_type, latitude, longitude, geom ) values (" + race_name + "," + city + "," + month_name + "," + state_name + "," +
+                mara_type + "," + tenk_type + "," + half_type + "," + fivek_type + "," + kid_type + "," + relay_type + "," +
+                lat + "," + lon + ", ST_GeomFromText('POINT(" + lon + " " + lat + ")', 4326)";
+        dbutil.modifyDB(sql);
+
+        // record report_id
+        ResultSet res_3 = dbutil.queryDB("select last_value from event_id_seq");
+        res_3.next();
+        id = res_3.getInt(1);
+
+        System.out.println("Success! Race has been entered into the database.");
 //
 //        // 4. create specific report
 //        if (report_type.equals("'donation'")) {
@@ -177,7 +192,7 @@ public class HttpServlet extends javax.servlet.http.HttpServlet {
 //        } else {
 //            return;
 //        }
-        dbutil.modifyDB(sql);
+//        dbutil.modifyDB(sql);
 
         // response that the report submission is successful
         JSONObject data = new JSONObject();

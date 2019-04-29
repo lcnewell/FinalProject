@@ -24,8 +24,8 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
     <!-- Google Map js libraries -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDqHMKZS0Z1MYjFJ3YVbWApWVufmQ9Cn_g&libraries=places,visualization"></script>
-
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAsqIHgOnw6xnDKMJaemjAPIK195fdBpfw&libraries=visualization,places">
+    </script>
 </head>
 
 <body>
@@ -39,7 +39,7 @@
 
             <!-- Tab Navis-->
             <ul class="nav nav-tabs">
-                <li class="active"><a href="#create_report" data-toggle="tab">Add a Race</a></li>
+                <li class="active"><a href="#create_report" data-toggle="tab">Add Run</a></li>
                 <li><a href="#query_report" data-toggle="tab">Query</a></li>
             </ul>
 
@@ -48,9 +48,82 @@
                 <!-- Create Report Tab Panel -->
                 <div class="tab-pane active" id="create_report">
                     <form id = "create_report_form">
+                        <div><label>Race Name:&nbsp</label><input placeholder="Race Name" name="race_name"></div>
                         <div><label>City:&nbsp</label><input placeholder="City Name" name="city"></div>
-                        <div><label>Month:&nbsp</label><input placeholder="Month of Run" name="month_name"></div>
-                        <div><label>State:&nbsp</label><input placeholder="State" name="state_name"></div>
+                        <%--<div><label>Month:&nbsp</label><input placeholder="Month of Run" name="month_name"></div>--%>
+                        <div><label>Month:</label>
+                            <select name="month_name">
+                                <option value="">Month of the Run</option>
+                                <option value="January">January</option>
+                                <option value="February">February</option>
+                                <option value="March">March</option>
+                                <option value="April">April</option>
+                                <option value="May">May</option>
+                                <option value="June">June</option>
+                                <option value="July">July</option>
+                                <option value="August">August</option>
+                                <option value="September">September</option>
+                                <option value="October">October</option>
+                                <option value="November">November</option>
+                                <option value="December">December</option>
+                            </select>
+                        </div>
+                        <%--<div><label>State:&nbsp</label><input placeholder="State" name="state_name"></div>--%>
+                        <div><label>State:</label>
+                            <select name="state_name">
+                                <option value="">Select the state</option>
+                                <option value="Alabama">Alabama</option>
+                                <option value="Alaska">Alaska</option>
+                                <option value="Arizona">Arizona</option>
+                                <option value="Arkansas">Arkansas</option>
+                                <option value="California">California</option>
+                                <option value="Colorado">Colorado</option>
+                                <option value="Connecticut">Connecticut</option>
+                                <option value="Delaware">Delaware</option>
+                                <option value="Florida">Florida</option>
+                                <option value="Georgia">Georgia</option>
+                                <option value="Hawaii">Hawaii</option>
+                                <option value="Idaho">Idaho</option>
+                                <option value="Illinois">Illinois</option>
+                                <option value="Indiana">Indiana</option>
+                                <option value="Iowa">Iowa</option>
+                                <option value="Kansas">Kansas</option>
+                                <option value="Kentucky">Kentucky</option>
+                                <option value="Louisiana">Louisiana</option>
+                                <option value="Maine">Maine</option>
+                                <option value="Maryland">Maryland</option>
+                                <option value="Massachusetts">Massachusetts</option>
+                                <option value="Michigan">Michigan</option>
+                                <option value="Minnesota">Minnesota</option>
+                                <option value="Mississippi">Mississippi</option>
+                                <option value="Missouri">Missouri</option>
+                                <option value="Montana">Montana</option>
+                                <option value="Nebraska">Nebraska</option>
+                                <option value="Nevada">Nevada</option>
+                                <option value="New Hampshire">New Hampshire</option>
+                                <option value="New Jersey">New Jersey</option>
+                                <option value="New Mexico">New Mexico</option>
+                                <option value="New York">New York</option>
+                                <option value="North Carolina">North Carolina</option>
+                                <option value="North Dakota">North Dakota</option>
+                                <option value="Ohio">Ohio</option>
+                                <option value="Oklahoma">Oklahoma</option>
+                                <option value="Oregon">Oregon</option>
+                                <option value="Pennsylvania">Pennsylvania</option>
+                                <option value="Rhode Island">Rhode Island</option>
+                                <option value="South Carolina">South Carolina</option>
+                                <option value="South Dakota">South Dakota</option>
+                                <option value="Tennessee">Tennessee</option>
+                                <option value="Texas">Texas</option>
+                                <option value="Utah">Utah</option>
+                                <option value="Vermont">Vermont</option>
+                                <option value="Virginia">Virginia</option>
+                                <option value="Washington">Washington</option>
+                                <option value="West Virginia">West Virginia</option>
+                                <option value="Wisconsin">Wisconsin</option>
+                                <option value="Wyoming">Wyoming</option>
+                            </select>
+                        </div>
                         <div><label>Marathon</label>
                             <label><input type="radio" name="mara_type" value="TRUE">&nbspYes</label>
                             <label><input type="radio" name="mara_type" value="FALSE">&nbspNo</label>
@@ -75,12 +148,43 @@
                             <label><input type="radio" name="relay_type" value="TRUE">&nbspYes</label>
                             <label><input type="radio" name="relay_type" value="FALSE">&nbspNo</label>
                         </div>
+                        <%--<div><label>Latitude:&nbsp</label><input placeholder="Enter Latitude" name="latitude"></div>--%>
+                        <%--<div><label>Longitude:&nbsp</label><input placeholder="Enter Longitude" name="longitude"></div>--%>
+
+                        <%--<div><label>Tel:&nbsp</label><input placeholder="Your telephone number" name="tel"></div>--%>
+                        <%--<div><label>Email:&nbsp</label><input placeholder="Your email address" name="email"></div>--%>
+                        <%--<div><label>Contact's First Name:&nbsp</label><input placeholder="Contact's first name" name="contact_fN"></div>--%>
+                        <%--<div><label>Contact's Last Name:&nbsp</label><input placeholder="Contact's last name" name="contact_lN"></div>--%>
+                        <%--<div><label>Contact's Tel:&nbsp</label><input placeholder="Contact's telephone number" name="contact_tel"></div>--%>
+                        <%--<div><label>Contact's Email:&nbsp</label><input placeholder="Contact's email address" name="contact_email"></div>--%>
+                        <%--<div><label>Report Type:</label>--%>
+                        <%--<select onchange="onSelectReportType(this)" name="report_type">--%>
+                        <%--<option value="">Choose the report type</option>--%>
+                        <%--<option value="donation">Donation</option>--%>
+                        <%--<option value="request">Request</option>--%>
+                        <%--<option value="damage">Damage Report</option>--%>
+                        <%--</select>--%>
+                        <%--</div>--%>
+                        <%--<div class="additional_msg_div" style="visibility: hidden"><label class="additional_msg"></label>--%>
+                        <%--<select class="additional_msg_select" name="additional_message"></select>--%>
+                        <%--</div>--%>
+                        <%--<div><label>Disaster Type:</label>--%>
+                        <%--<select name="disaster_type">--%>
+                        <%--<option value="">Choose the disaster type</option>--%>
+                        <%--<option value="flood">flood</option>--%>
+                        <%--<option value="wildfire">wildfire</option>--%>
+                        <%--<option value="earthquake">earthquake</option>--%>
+                        <%--<option value="tornado">tornado</option>--%>
+                        <%--<option value="hurricane">hurricane</option>--%>
+                        <%--<option value="other">other</option>--%>
+                        <%--</select>--%>
+                        <%--</div>--%>
                         <div><label>Address:</label>
                             <input id="autocomplete" placeholder="Address" >
                         </div>
-                        <div><label>Comment:&nbsp</label><input placeholder="Additional message" name="message"></div>
+                        <%--<div><label>Comment:&nbsp</label><input placeholder="Additional message" name="message"></div>--%>
                         <button type="submit" class="btn btn-default" id="report_submit_btn">
-                            <span class="glyphicon glyphicon-star"></span> Submit
+                            <span class="glyphicon glyphicon-star"></span> Create
                         </button>
                     </form>
                 </div>
