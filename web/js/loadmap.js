@@ -5,7 +5,7 @@ var autocomplete;
 var infowindow = new google.maps.InfoWindow();
 var iconBase =  'img/';
 var icons = {
-    __notUsed__: {
+    all: {
         icon: {
             url: iconBase +'runningman.PNG',
             scaledSize: new google.maps.Size(50, 50),
@@ -67,9 +67,8 @@ function showAllReports() {
     $.ajax({
         url: 'HttpServlet',
         type: 'POST',
-        data: { "tab_id": "1", "report_type": "mara_type" },
+        data: { "tab_id": "1", "report_type": "mara_type", "month_name": "January"},
         success: function(reports) {
-            console.log(reports);
             mapInitialization(reports, "mara_type");
         },
         error: function(xhr, status, error) {
@@ -84,7 +83,6 @@ function showRaceType(raceType) {
         type: 'POST',
         data: { "tab_id": "1"},
         success: function(reports) {
-            console.log(reports);
             updateMap(reports, raceType);
         },
         error: function(xhr, status, error) {
@@ -170,7 +168,6 @@ function updateMap(reports, raceType) {
     map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 
     var bounds = new google.maps.LatLngBounds ();
-    console.log(reports)
     $.each(reports, function(i, e) {
         var long = Number(e['longitude']);
         var lat = Number(e['latitude']);

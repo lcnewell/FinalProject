@@ -163,38 +163,20 @@ public class HttpServlet extends javax.servlet.http.HttpServlet {
         System.out.println(lon);
         System.out.println(lat);
 
-        sql = "insert into event (race_name, city, month_name, state_name, mara_type, tenk_type, half_type, fivek_type," +
-                " kid_type, relay_type, latitude, longitude, geom ) values (" + race_name + "," + city + "," + month_name + "," + state_name + "," +
-                mara_type + "," + tenk_type + "," + half_type + "," + fivek_type + "," + kid_type + "," + relay_type + "," +
-                lat + "," + lon + ", ST_GeomFromText('POINT(" + lon + " " + lat + ")', 4326)";
+        ResultSet res_3 = dbutil.queryDB("select id from event order by id DESC limit 1");
+        res_3.next();
+        id = res_3.getInt(1) + 1;
+        System.out.println(id);
+        sql = "insert into event (id, race_name, city, month_name, state_name, mara_type, tenk_type, half_type, fivek_type," +
+                " kid_type, relay_type, latitude, longitude) values ('" + id + "','" + race_name + "','" + city + "','" + month_name + "','" + state_name + "','" +
+                mara_type + "','" + tenk_type + "','" + half_type + "','" + fivek_type + "','" + kid_type + "','" + relay_type + "','" +
+                lat + "','" + lon + "')";
+        System.out.println(sql);
         dbutil.modifyDB(sql);
 
-        // record report_id
-        ResultSet res_3 = dbutil.queryDB("select last_value from event_id_seq");
-        res_3.next();
-        id = res_3.getInt(1);
 
         System.out.println("Success! Race has been entered into the database.");
-//
-//        // 4. create specific report
-//        if (report_type.equals("'donation'")) {
-//            sql = "insert into donation_report (report_id, resource_type) values ('"
-//                    + report_id + "'," + add_msg + ")";
-//            System.out.println("Success! Donation report created.");
-//        } else if (report_type.equals("'request'")) {
-//            sql = "insert into request_report (report_id, resource_type) values ('"
-//                    + report_id + "'," + add_msg + ")";
-//            System.out.println("Success! Request report created.");
-//        } else if (report_type.equals("'damage'")) {
-//            sql = "insert into damage_report (report_id, damage_type) values ('"
-//                    + report_id + "'," + add_msg + ")";
-//            System.out.println("Success! Damage report created.");
-//        } else {
-//            return;
-//        }
-//        dbutil.modifyDB(sql);
 
-        // response that the report submission is successful
         JSONObject data = new JSONObject();
         try {
             data.put("status", "success");
@@ -247,7 +229,19 @@ public class HttpServlet extends javax.servlet.http.HttpServlet {
 //            queryReportHelper(sql,list,"damage",disaster_type,resource_or_damage);
 //        }
         String raceType = request.getParameter("report_type");
-        String sql = "select * from event where " + raceType + " = true;";
+        String month = request.getParameter("month_name");
+
+        String sql = "select * from event";
+
+        if (!raceType.equalsIgnoreCase("all")) {
+            sql += " where " + raceType + " = true";
+            if (!month.equalsIgnoreCase("all")) {
+                sql += " and month_name = '" + month + "'";
+            }
+        } else if (!month.equalsIgnoreCase("all")) {
+            sql += " where month_name = '" + month + "'";
+        }
+
         DBUtility dbutil = new DBUtility();
         ResultSet res = dbutil.queryDB(sql);
         while (res.next()) {

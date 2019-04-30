@@ -81,6 +81,7 @@ function createReport(event) {
     a.push({ name: "latitude", value: place.geometry.location.lat()});
     a.push({ name: "longitude", value: place.geometry.location.lng()});
     a = a.filter(function(item){return item.value != '';});
+
     console.log(a)
     $.ajax({
         url: 'HttpServlet',

@@ -194,12 +194,29 @@
                     <form id = "query_report_form">
                         <div><label>Report Type:</label>
                             <select onchange="" name="report_type">
-                                <option value="">Choose Race Type</option>
                                 <option value="fivek_type">5K</option>
                                 <option value="tenk_type">10K</option>
                                 <option value="relay_type">Relay</option>
                                 <option value="half_type">Half  Marathon</option>
                                 <option value="mara_type">Full  Marathon</option>
+                                <option value="all">All</option>
+                            </select>
+                        </div>
+                        <div><label>Month:</label>
+                            <select name="month_name">
+                                <option value="January">January</option>
+                                <option value="February">February</option>
+                                <option value="March">March</option>
+                                <option value="April">April</option>
+                                <option value="May">May</option>
+                                <option value="June">June</option>
+                                <option value="July">July</option>
+                                <option value="August">August</option>
+                                <option value="September">September</option>
+                                <option value="October">October</option>
+                                <option value="November">November</option>
+                                <option value="December">December</option>
+                                <option value="all">All</option>
                             </select>
                         </div>
                         <div class="additional_msg_div" style="visibility: hidden"><label class="additional_msg"></label>
