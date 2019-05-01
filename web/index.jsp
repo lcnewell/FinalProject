@@ -199,7 +199,7 @@
                                 <option value="relay_type">Relay</option>
                                 <option value="half_type">Half  Marathon</option>
                                 <option value="mara_type">Full  Marathon</option>
-                                <option value="all">All</option>
+                                <option value="all" selected="selected">All</option>
                             </select>
                         </div>
                         <div><label>Month:</label>
@@ -216,7 +216,7 @@
                                 <option value="October">October</option>
                                 <option value="November">November</option>
                                 <option value="December">December</option>
-                                <option value="all">All</option>
+                                <option value="all" selected="selected">All</option>
                             </select>
                         </div>
                         <div class="additional_msg_div" style="visibility: hidden"><label class="additional_msg"></label>

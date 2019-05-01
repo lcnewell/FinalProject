@@ -67,9 +67,9 @@ function showAllReports() {
     $.ajax({
         url: 'HttpServlet',
         type: 'POST',
-        data: { "tab_id": "1", "report_type": "mara_type", "month_name": "January"},
+        data: { "tab_id": "1", "report_type": "all", "month_name": "all"},
         success: function(reports) {
-            mapInitialization(reports, "mara_type");
+            mapInitialization(reports, "all");
         },
         error: function(xhr, status, error) {
             alert("An AJAX error occured: " + status + "\nError: " + error);
