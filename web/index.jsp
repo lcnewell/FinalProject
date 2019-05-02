@@ -126,34 +126,34 @@
                         </div>
                         <div><label>Marathon</label>
                             <label><input type="radio" name="mara_type" value="TRUE">&nbspYes</label>
-                            <label><input type="radio" name="mara_type" value="FALSE">&nbspNo</label>
+                            <label><input type="radio" name="mara_type" value="FALSE" checked="checked">&nbspNo</label>
                         </div>
                         <div><label>Half Marathon</label>
                             <label><input type="radio" name="half_type" value="TRUE">&nbspYes</label>
-                            <label><input type="radio" name="half_type" value="FALSE">&nbspNo</label>
+                            <label><input type="radio" name="half_type" value="FALSE" checked="checked">&nbspNo</label>
                         </div>
                         <div><label>10k</label>
                             <label><input type="radio" name="tenk_type" value="TRUE">&nbspYes</label>
-                            <label><input type="radio" name="tenk_type" value="FALSE">&nbspNo</label>
+                            <label><input type="radio" name="tenk_type" value="FALSE" checked="checked">&nbspNo</label>
                         </div>
                         <div><label>5k</label>
                             <label><input type="radio" name="fivek_type" value="TRUE">&nbspYes</label>
-                            <label><input type="radio" name="fivek_type" value="FALSE">&nbspNo</label>
+                            <label><input type="radio" name="fivek_type" value="FALSE" checked="checked">&nbspNo</label>
                         </div>
                         <div><label>Kids Run</label>
                             <label><input type="radio" name="kid_type" value="TRUE">&nbspYes</label>
-                            <label><input type="radio" name="kid_type" value="FALSE">&nbspNo</label>
+                            <label><input type="radio" name="kid_type" value="FALSE" checked="checked">&nbspNo</label>
                         </div>
                         <div><label>Relay</label>
                             <label><input type="radio" name="relay_type" value="TRUE">&nbspYes</label>
-                            <label><input type="radio" name="relay_type" value="FALSE">&nbspNo</label>
+                            <label><input type="radio" name="relay_type" value="FALSE" checked="checked">&nbspNo</label>
                         </div>
                         <div><label>Address:</label>
                             <input id="autocomplete" placeholder="Address" >
                         </div>
                         <%--<div><label>Comment:&nbsp</label><input placeholder="Additional message" name="message"></div>--%>
                         <button type="submit" class="btn btn-default" id="report_submit_btn">
-                            <span class="glyphicon glyphicon-cloud-upload"></span> Create Event
+                            <span class="glyphicon glyphicon-cloud-upload"></span> Create
                         </button>
                     </form>
                 </div>
