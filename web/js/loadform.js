@@ -1,5 +1,5 @@
 /**
- * this coordinates with the queryReport function in httpservlet. queryreport pulls request from the user examines the
+ * this coordinates with the queryReport function in httpservlet. queryReport pulls request from the user examines the
  * database and displays the results from the query either by month or run type or both.
  */
 function queryReport(event) {
@@ -13,7 +13,7 @@ function queryReport(event) {
         type: 'POST',
         data: a,
         success: function(reports) {
-            generateMap(reports, raceType);
+            updateMap(reports, raceType);
         },
         error: function(xhr, status, error) {
             alert("Status: " + status + "\nError: " + error);
@@ -22,7 +22,7 @@ function queryReport(event) {
 }
 
 /**
- * calls the create report form function and creates run event in the database with the data entered in by the user
+ * create the running event calling the createReport function. Pushes the latitude and longitude along with the tab id.
  */
 function createReport(event) {
     event.preventDefault(); // stop form from submitting normally
@@ -44,10 +44,10 @@ function createReport(event) {
                 type: 'POST',
                 data: { "tab_id": "1"},
                 success: function(reports) {
-                    generateMap(reports);
+                    mapInitialization(reports);
                     onPlaceChanged();
                     $("#create_report_form").trigger("reset");
-
+                    $(".additional_msg_div").css("visibility", "hidden");
                 },
                 error: function(xhr, status, error) {
                     alert("An AJAX error occured: " + status + "\nError: " + error);
@@ -62,7 +62,7 @@ function createReport(event) {
 }
 
 /**
- * call function upon 'submit'
+ * call the respective functions on 'submit'
  */
 $("#query_report_form").on("submit",queryReport);
 $("#create_report_form").on("submit",createReport);

@@ -10,8 +10,8 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-    <title>Web Project</title>
-
+    <title>The Running Shop</title>
+    <link rel="shortcut icon" href="img/runningman.PNG">
     <!-- Custom styles -->
     <link rel="stylesheet" href="css/style.css">
 
@@ -26,6 +26,7 @@
     <!-- Google Map js libraries -->
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAsqIHgOnw6xnDKMJaemjAPIK195fdBpfw&libraries=visualization,places">
     </script>
+
 </head>
 
 <body>
@@ -161,7 +162,7 @@
                 <!-- Query Report Tab Panel -->
                 <div class="tab-pane" id="query_report">
                     <form id = "query_report_form">
-                        <div><label>Event Type:</label>
+                        <div><label>Report Type:</label>
                             <select onchange="" name="report_type">
                                 <option value="fivek_type">5K</option>
                                 <option value="tenk_type">10K</option>

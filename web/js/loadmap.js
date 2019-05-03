@@ -4,6 +4,8 @@ var place;
 var autocomplete;
 var infowindow = new google.maps.InfoWindow();
 var iconBase =  'img/';
+
+// assign each run type a different color icon
 var icons = {
     all: {
         icon: {
@@ -55,15 +57,18 @@ var icons = {
     },
 };
 
+/**
+ * initialization of the web app
+ */
 function initialization() {
-    showAllReports();
+    showAllRuns();
     initAutocomplete();
 }
 
 /**
- * will change data if we don't go with tabs. also change reports to better name
+ * will display all the running events within the database with a default colored icon
  */
-function showAllReports() {
+function showAllRuns() {
     $.ajax({
         url: 'HttpServlet',
         type: 'POST',
@@ -76,7 +81,9 @@ function showAllReports() {
         }
     });
 }
-
+/**
+ * will generate the map to display all the running events within the database
+ */
 function generateMap(reports, raceType) {
     var mapOptions = {
         mapTypeId : google.maps.MapTypeId.ROADMAP, // Set the type of Map
@@ -94,17 +101,12 @@ function generateMap(reports, raceType) {
 
         bounds.extend(latlng);
 
-        /**
-         * need to add the runner pngs to the project and edit these urls to point to the new images.
-         * alter size as needed. change icon names.
-         */
-        // Create the icon marker
-        var contentStr = '<h4>Event Details</h4><hr>';
+        // content string for the information displayed when the user clicks on a icon.
 
-        /**
-         * change icon
-         */
-        // Create the marker
+        var contentStr = '<h4>Event Details</h4><hr>';
+        '</p>';
+
+        // assigns the correct icon based upon the different run types
         var marker = new google.maps.Marker({ // Set the marker
             position : latlng, // Position marker to coordinates
             icon: icons[raceType].icon,
@@ -126,7 +128,7 @@ function generateMap(reports, raceType) {
 }
 
 /**
- * we can probably keep everything below here the same for now
+ * autocomplete function within the google maps API
  */
 
 function initAutocomplete() {
@@ -138,6 +140,10 @@ function initAutocomplete() {
     autocomplete.addListener('place_changed', onPlaceChanged);
 }
 
+/**
+ * onPlaceChanged changes the viewport based upon the autocomplete address input. The current viewport is then used to
+ * place the icon in another function.
+ */
 function onPlaceChanged() {
     place = autocomplete.getPlace();
     if (!place.geometry) {

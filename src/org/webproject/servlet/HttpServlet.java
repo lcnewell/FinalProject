@@ -36,10 +36,6 @@ public class HttpServlet extends javax.servlet.http.HttpServlet {
 
         String tab_id = request.getParameter("tab_id");
 
-        /**
-         * This will need some changes. If we decide to stick with the tab_id concept then just names iwll have to be changes.
-         * Otherwise probably just delete the "get" option and only allow the "post"
-         */
         // create a report
         if (tab_id.equals("0")) {
             System.out.println("A report is submitted!");
@@ -64,19 +60,14 @@ public class HttpServlet extends javax.servlet.http.HttpServlet {
         }
     }
 
+    // The createReport function allows the user to enter in the required fields and then takes the user data and stores it within the associated database.
     private void createReport(HttpServletRequest request, HttpServletResponse
             response) throws SQLException, IOException {
         DBUtility dbutil = new DBUtility();
         String sql = "";
-/**
- * This section will need to be modified to create a post to the new table, "event". Follow the format of the below code to
- * 1. pull fields from the request with request.getParameter()
- * 2. add quotes surrounding the field strings ie. my_string = "'" + my_string + "'";
- * 3. build the actual sql statemend "insert into event (field_1, field_2...) etc"
- * 4. call dbutil.modifyDB with the result and report the status (lines 179-188 ish)
- */
 
-        // create race report
+
+        // create race and input the user inputs into the database for displaying and querying.
         int id = 0;
         String race_name = request.getParameter("race_name");
         String city = request.getParameter("city");
@@ -91,16 +82,19 @@ public class HttpServlet extends javax.servlet.http.HttpServlet {
         String lon = request.getParameter("longitude");
         String lat = request.getParameter("latitude");
 
+        // get the last record id and increment the number by 1. Set the id to the new value
 
         ResultSet res_3 = dbutil.queryDB("select id from event order by id DESC limit 1");
         res_3.next();
         id = res_3.getInt(1) + 1;
         System.out.println(id);
+
+        //create a statement for data entry into the database. This takes values from the form and inputs into a string for storage of values.
+
         sql = "insert into event (id, race_name, city, month_name, state_name, mara_type, tenk_type, half_type, fivek_type," +
                 " kid_type, relay_type, latitude, longitude) values ('" + id + "','" + race_name + "','" + city + "','" + month_name + "','" + state_name + "','" +
                 mara_type + "','" + tenk_type + "','" + half_type + "','" + fivek_type + "','" + kid_type + "','" + relay_type + "','" +
                 lat + "','" + lon + "')";
-        System.out.println(sql);
         dbutil.modifyDB(sql);
 
 
@@ -116,13 +110,11 @@ public class HttpServlet extends javax.servlet.http.HttpServlet {
 
     }
 
+    // queryReport function queries the database to find all the runs within the user defined parameters.
+
     private void queryReport(HttpServletRequest request, HttpServletResponse
             response) throws JSONException, SQLException, IOException {
         JSONArray list = new JSONArray();
-/**
- * Follow the format of one of these ifs (i dont b elieve there are multiple cases) and create a select statement with the column
- * names we want to return from the even database
- */
 
         String raceType = request.getParameter("report_type");
         String month = request.getParameter("month_name");
@@ -152,26 +144,6 @@ public class HttpServlet extends javax.servlet.http.HttpServlet {
             list.put(m);
         }
         response.getWriter().write(list.toString());
-    }
-
-    private void queryReportHelper(String sql, JSONArray list, String report_type,
-                                   String disaster_type, String resource_or_damage) throws SQLException {
-        /**
-         * dont need this beginning logic just hte call to dbutil.queryDB.  the while loop is building a response list so we'll want that but will
-         * change it to 'put' relevant fields from our query response from the event table
-         */
-        DBUtility dbutil = new DBUtility();
-        if (disaster_type != null) {
-            sql += " and disaster_type = '" + disaster_type + "'";
-        }
-        if (resource_or_damage != null) {
-            if (report_type.equalsIgnoreCase("damage")) {
-                sql += " and damage_type = '" + resource_or_damage + "'";
-            } else {
-                sql += " and resource_type = '" + resource_or_damage + "'";
-            }
-        }
-        ResultSet res = dbutil.queryDB(sql);
     }
 
     public void main() throws JSONException {
