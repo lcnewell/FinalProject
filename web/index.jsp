@@ -161,7 +161,7 @@
                 <!-- Query Report Tab Panel -->
                 <div class="tab-pane" id="query_report">
                     <form id = "query_report_form">
-                        <div><label>Report Type:</label>
+                        <div><label>Event Type:</label>
                             <select onchange="" name="report_type">
                                 <option value="fivek_type">5K</option>
                                 <option value="tenk_type">10K</option>

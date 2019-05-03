@@ -13,7 +13,7 @@ function queryReport(event) {
         type: 'POST',
         data: a,
         success: function(reports) {
-            updateMap(reports, raceType);
+            generateMap(reports, raceType);
         },
         error: function(xhr, status, error) {
             alert("Status: " + status + "\nError: " + error);
@@ -44,7 +44,7 @@ function createReport(event) {
                 type: 'POST',
                 data: { "tab_id": "1"},
                 success: function(reports) {
-                    mapInitialization(reports);
+                    generateMap(reports);
                     onPlaceChanged();
                     $("#create_report_form").trigger("reset");
 
