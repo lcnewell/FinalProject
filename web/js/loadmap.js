@@ -97,14 +97,19 @@ function generateMap(reports, raceType) {
     $.each(reports, function(i, e) {
         var long = Number(e['longitude']);
         var lat = Number(e['latitude']);
+        var raceName = e['race'];
+        var raceState =  e['state'];
+        var raceCity = e['city'];
+        var raceMonth = e['month'];
         var latlng = new google.maps.LatLng(lat, long);
 
         bounds.extend(latlng);
 
+
         // content string for the information displayed when the user clicks on a icon.
 
-        var contentStr = '<h4>Event Details</h4><hr>';
-        '</p>';
+        var contentStr = '<h4>Event Details</h4><hr><p><strong>Race Name: </strong>' + raceName + '</p><p><strong>Month: </strong>' + raceMonth + '</p><p><strong>State: </strong>' + raceState + '</p><p><strong>City: </strong>' + raceCity + '</p>';
+
 
         // assigns the correct icon based upon the different run types
         var marker = new google.maps.Marker({ // Set the marker
