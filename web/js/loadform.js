@@ -1,10 +1,10 @@
 /**
- * this coordinates with the queryReport function in httpservlet. queryReport pulls request from the user examines the
+ * this coordinates with the queryEvent function in httpservlet. queryEvent pulls request from the user examines the
  * database and displays the results from the query either by month or run type or both.
  */
-function queryReport(event) {
+function queryEvent(event) {
     event.preventDefault(); // stop form from submitting normally
-    var a = $("#query_report_form").serializeArray();
+    var a = $("#query_event_form").serializeArray();
     a.push({ name: "tab_id", value: "1" });
     a = a.filter(function(item){return item.value != '';});
     var raceType = a[0].value;
@@ -12,8 +12,8 @@ function queryReport(event) {
         url: 'HttpServlet',
         type: 'POST',
         data: a,
-        success: function(reports) {
-            updateMap(reports, raceType);
+        success: function(events) {
+            generateMap(events, raceType);
         },
         error: function(xhr, status, error) {
             alert("Status: " + status + "\nError: " + error);
@@ -22,12 +22,12 @@ function queryReport(event) {
 }
 
 /**
- * create the running event calling the createReport function. Pushes the latitude and longitude along with the tab id.
+ * create the running event calling the createEvent function. Pushes the latitude and longitude along with the tab id.
  */
-function createReport(event) {
+function createEvent(event) {
     event.preventDefault(); // stop form from submitting normally
-
-    var a = $("#create_report_form").serializeArray();
+    onPlaceChanged();
+    var a = $("#create_event_form").serializeArray();
     a.push({ name: "tab_id", value: "0" });
     a.push({ name: "latitude", value: place.geometry.location.lat()});
     a.push({ name: "longitude", value: place.geometry.location.lng()});
@@ -38,22 +38,21 @@ function createReport(event) {
         url: 'HttpServlet',
         type: 'POST',
         data: a,
-        success: function(reports) {
+        success: function(events) {
             $.ajax({
                 url: 'HttpServlet',
                 type: 'POST',
-                data: { "tab_id": "1"},
-                success: function(reports) {
-                    mapInitialization(reports);
+                data: { "tab_id": "1", "race_type": "all", "month_name": "all"},
+                success: function(events) {
+                    generateMap(events, "all");
                     onPlaceChanged();
-                    $("#create_report_form").trigger("reset");
-                    $(".additional_msg_div").css("visibility", "hidden");
+                    $("#create_event_form").trigger("reset");
                 },
                 error: function(xhr, status, error) {
-                    alert("An AJAX error occured: " + status + "\nError: " + error);
+                    alert("An AJAX error occured pulling event data: " + status + "\nError: " + error);
                 }
             });
-            alert("The report is successfully submitted!");
+            alert("The event is successfully submitted!");
         },
         error: function(xhr, status, error) {
             alert("Status: " + status + "\nError: " + error);
@@ -64,5 +63,5 @@ function createReport(event) {
 /**
  * call the respective functions on 'submit'
  */
-$("#query_report_form").on("submit",queryReport);
-$("#create_report_form").on("submit",createReport);
+$("#query_event_form").on("submit",queryEvent);
+$("#create_event_form").on("submit",createEvent);

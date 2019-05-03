@@ -72,9 +72,9 @@ function showAllRuns() {
     $.ajax({
         url: 'HttpServlet',
         type: 'POST',
-        data: { "tab_id": "1", "report_type": "all", "month_name": "all"},
-        success: function(reports) {
-            generateMap(reports, "all");
+        data: { "tab_id": "1", "race_type": "all", "month_name": "all"},
+        success: function(events) {
+            generateMap(events, "all");
         },
         error: function(xhr, status, error) {
             alert("An AJAX error occured: " + status + "\nError: " + error);
@@ -84,7 +84,7 @@ function showAllRuns() {
 /**
  * will generate the map to display all the running events within the database
  */
-function generateMap(reports, raceType) {
+function generateMap(events, raceType) {
     var mapOptions = {
         mapTypeId : google.maps.MapTypeId.ROADMAP, // Set the type of Map
     };
@@ -94,7 +94,7 @@ function generateMap(reports, raceType) {
 
     var bounds = new google.maps.LatLngBounds ();
 
-    $.each(reports, function(i, e) {
+    $.each(events, function(i, e) {
         var long = Number(e['longitude']);
         var lat = Number(e['latitude']);
         var raceName = e['race'];
@@ -107,7 +107,6 @@ function generateMap(reports, raceType) {
 
 
         // content string for the information displayed when the user clicks on a icon.
-
         var contentStr = '<h4>Event Details</h4><hr><p><strong>Race Name: </strong>' + raceName + '</p><p><strong>Month: </strong>' + raceMonth + '</p><p><strong>State: </strong>' + raceState + '</p><p><strong>City: </strong>' + raceCity + '</p>';
 
 

@@ -1,7 +1,4 @@
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
-import java.sql.Statement;
 import org.webproject.servlet.DBUtility;
 
 public class JDBCDemo {

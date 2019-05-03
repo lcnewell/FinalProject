@@ -12,7 +12,6 @@ public class DBUtility {
     private static final String Username = "postgres";
     private static final String Password = "simple";
 
-    // This is a constructor
     public DBUtility() {
     }
 

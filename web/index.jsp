@@ -40,15 +40,15 @@
 
             <!-- Tab Navis-->
             <ul class="nav nav-tabs">
-                <li class="active"><a href="#create_report" data-toggle="tab">Add Run</a></li>
-                <li><a href="#query_report" data-toggle="tab">Query</a></li>
+                <li class="active"><a href="#create_event" data-toggle="tab">Add Run</a></li>
+                <li><a href="#query_event" data-toggle="tab">Query</a></li>
             </ul>
 
             <!-- Tab panes -->
             <div class="tab-content ">
-                <!-- Create Report Tab Panel -->
-                <div class="tab-pane active" id="create_report">
-                    <form id = "create_report_form">
+                <!-- Create event Tab Panel -->
+                <div class="tab-pane active" id="create_event">
+                    <form id = "create_event_form">
                         <div><label>Race Name:&nbsp</label><input placeholder="Race Name" name="race_name"></div>
                         <div><label>City:&nbsp</label><input placeholder="City Name" name="city"></div>
 
@@ -153,17 +153,17 @@
                             <input id="autocomplete" placeholder="Address" >
                         </div>
                         <%--<div><label>Comment:&nbsp</label><input placeholder="Additional message" name="message"></div>--%>
-                        <button type="submit" class="btn btn-default" id="report_submit_btn">
+                        <button type="submit" class="btn btn-default" id="event_submit_btn">
                             <span class="glyphicon glyphicon-cloud-upload"></span> Create
                         </button>
                     </form>
                 </div>
 
-                <!-- Query Report Tab Panel -->
-                <div class="tab-pane" id="query_report">
-                    <form id = "query_report_form">
-                        <div><label>Report Type:</label>
-                            <select onchange="" name="report_type">
+                <!-- Query Event Tab Panel -->
+                <div class="tab-pane" id="query_event">
+                    <form id = "query_event_form">
+                        <div><label>Event Type:</label>
+                            <select onchange="" name="race_type">
                                 <option value="fivek_type">5K</option>
                                 <option value="tenk_type">10K</option>
                                 <option value="relay_type">Relay</option>

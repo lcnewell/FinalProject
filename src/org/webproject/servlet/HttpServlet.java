@@ -9,12 +9,10 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.sound.midi.SysexMessage;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.webproject.servlet.DBUtility;
 
 
 @WebServlet("/HttpServlet")
@@ -36,20 +34,20 @@ public class HttpServlet extends javax.servlet.http.HttpServlet {
 
         String tab_id = request.getParameter("tab_id");
 
-        // create a report
+        // create an event
         if (tab_id.equals("0")) {
-            System.out.println("A report is submitted!");
+            System.out.println("An event is created!");
             try {
-                createReport(request, response);
+                createEvent(request, response);
             } catch (SQLException e) {
                 e.printStackTrace();
             }
         }
 
-        // query reports
+        // query events
         else if (tab_id.equals("1")) {
             try {
-                queryReport(request, response);
+                queryEvent(request, response);
             } catch (JSONException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
@@ -60,8 +58,8 @@ public class HttpServlet extends javax.servlet.http.HttpServlet {
         }
     }
 
-    // The createReport function allows the user to enter in the required fields and then takes the user data and stores it within the associated database.
-    private void createReport(HttpServletRequest request, HttpServletResponse
+    // The createEvent function allows the user to enter in the required fields and then takes the user data and stores it within the associated database.
+    private void createEvent(HttpServletRequest request, HttpServletResponse
             response) throws SQLException, IOException {
         DBUtility dbutil = new DBUtility();
         String sql = "";
@@ -83,14 +81,12 @@ public class HttpServlet extends javax.servlet.http.HttpServlet {
         String lat = request.getParameter("latitude");
 
         // get the last record id and increment the number by 1. Set the id to the new value
-
         ResultSet res_3 = dbutil.queryDB("select id from event order by id DESC limit 1");
         res_3.next();
         id = res_3.getInt(1) + 1;
         System.out.println(id);
 
         //create a statement for data entry into the database. This takes values from the form and inputs into a string for storage of values.
-
         sql = "insert into event (id, race_name, city, month_name, state_name, mara_type, tenk_type, half_type, fivek_type," +
                 " kid_type, relay_type, latitude, longitude) values ('" + id + "','" + race_name + "','" + city + "','" + month_name + "','" + state_name + "','" +
                 mara_type + "','" + tenk_type + "','" + half_type + "','" + fivek_type + "','" + kid_type + "','" + relay_type + "','" +
@@ -110,13 +106,13 @@ public class HttpServlet extends javax.servlet.http.HttpServlet {
 
     }
 
-    // queryReport function queries the database to find all the runs within the user defined parameters.
+    // queryEvent function queries the database to find all the runs within the user defined parameters.
 
-    private void queryReport(HttpServletRequest request, HttpServletResponse
+    private void queryEvent(HttpServletRequest request, HttpServletResponse
             response) throws JSONException, SQLException, IOException {
         JSONArray list = new JSONArray();
 
-        String raceType = request.getParameter("report_type");
+        String raceType = request.getParameter("race_type");
         String month = request.getParameter("month_name");
 
         String sql = "select * from event";
